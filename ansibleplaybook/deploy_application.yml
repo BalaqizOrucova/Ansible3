@@ -1,0 +1,36 @@
+---
+- hosts: 172.19.110.8
+  gather_facts: no
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - ../roles/database_role
+    - ../roles/webapp_role
+  vars_files:
+    - ../credentials.yml  # Your Ansible Vault encrypted file
+  tasks:
+  
+    - name: Use encrypted variable
+      debug:
+        msg: "The secret value is {{ mysql_root_password }}"
+          #- name: Install MySQL Client in Container
+          #docker_container:
+          #name: webapp-webapp-1
+          #image: ansible-docker-image5
+          #state: started
+          #command: sh -c "apt-get update && apt-get install -y default-mysql-client"
+          #when: "'webapp-webapp-1' in inventory_hostname"
+
+
+          #- hosts: localhost  # Use the IP address of the host where Ansible is running
+          #  gather_facts: no  # Disable fact gathering since it's not needed for local tasks
+          # tasks:
+          #- name: Start Web Application Container
+          #docker_container:
+          #name: webapp-webapp-1
+          #image: ansible-docker-image5
+          #state: started
+          #ports:
+          #   - "5000:5000"
+          #notify: Restart Web Application Container

@@ -1,0 +1,27 @@
+---
+- hosts: 172.19.110.8  # You can specify the target host(s) here
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Create Docker network
+      community.docker.docker_network:
+        name: my-network
+        driver: bridge
+
+    - name: Deploy MySQL database container
+      community.docker.docker_container:
+        name: mysql-db
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root  # Replace with a secure password
+          MYSQL_DATABASE: ansibleproj          # Your database name
+          MYSQL_USER: devops                    # Database user
+          MYSQL_PASSWORD: root       # Replace with a secure password
+        volumes:
+          - ../mysql/data:/var/lib/mysql
+        ports:
+          - "3306:3306"
+        networks:
+          - name: my-network
+

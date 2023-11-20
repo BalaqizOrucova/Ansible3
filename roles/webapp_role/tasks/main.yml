@@ -1,0 +1,17 @@
+---
+#- name: Pull Web Application Docker Image
+#  docker_image:
+#    name: ansible-docker-image
+#    source: pull
+#  notify: Restart Web Application Container
+
+- name: Start Web Application Container
+  docker_container:
+    name: webapp-container
+    image: ansible-docker-image7
+    state: started
+    ports:
+      - "5000:5000"
+  notify: Restart Web Application Container
+
+# tasks file for webapp_role

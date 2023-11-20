@@ -1,0 +1,19 @@
+---
+- hosts: 172.19.110.8
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Deploy web application container
+      community.docker.docker_container:
+        name: webapp-container
+        image: ansible-docker-image7:latest
+        env:
+          DATABASE_HOST: mysql-db  # This should match the name of the database container
+          DATABASE_USER: devops
+          DATABASE_PASSWORD: root
+          DATABASE_NAME: ansibleproj
+        ports:
+          - "8080:80"
+        networks:
+          - name: my-network
