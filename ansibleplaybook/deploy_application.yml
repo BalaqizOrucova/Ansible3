@@ -1,5 +1,5 @@
 ---
-- hosts: 172.19.110.8
+- hosts: localhost #172.19.110.8
   gather_facts: no
   become: yes
   become_user: root
