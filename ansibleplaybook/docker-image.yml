@@ -1,5 +1,5 @@
 ---
-- hosts: 172.19.110.8
+- hosts: localhost #172.19.110.8
   become: yes
   become_user: root
   become_method: sudo
