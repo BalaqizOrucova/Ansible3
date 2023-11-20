@@ -1,5 +1,5 @@
 ---
-- hosts: 172.19.110.8  # You can specify the target host(s) here
+- hosts: localhost # 172.19.110.8
   become: yes
   become_user: root
   become_method: sudo
